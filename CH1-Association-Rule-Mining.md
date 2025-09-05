@@ -1,15 +1,6 @@
 
 # Chapter 1. Association Rule Mining
 
-**List of Notations**
-
-| Notations | Description | Meaning |
-| :--- | :--- |:---|
-| $A$ | Captial Letter | A single item |
-| $r$ | Lowercase Letter | An association rule |
-| $\mathbf{X}$ | Bold-face capital letter | An item set |
-| $\mathbb{S}$ | Blackboard-bold captital letter | A rule set |
-
 # 1. Basic Concepts
 
 | TID | A | B | C | D | E |
@@ -127,7 +118,7 @@ Association rules with a confidence greater than a threshold.
 
 **Step 3.** Select a set of rules $R$ with $\text{supp}(r) \geq 3$ and $\text{conf}(r) \geq 50\%$, for all $r\in R$.
 
-**Output:** $\mathbb{S}_{0}$, the required set of association rules.
+**Output:** $S_{0}$, the required set of association rules.
 
 ### 2.2.2 Method 2: Two-step method
 
@@ -157,63 +148,63 @@ Association rules with a confidence greater than a threshold.
 | $\{C\}$ | 3 | YES |
 | $\{B, C\}$ | 3 | YES |
 
-**Output:** $\mathbb{S}_{1}$
+**Output:** $S_{1}$
 
 **Step 2.** Generate a set of rules with conf >= 50%.
 
-*Step 2.1* For any two item sets in $\mathbb{S}_{1}$, being $\mathbf{X}$ and $\mathbf{Y}$, where $\mathbf{X} \subseteq \mathbf{Y} $:
+*Step 2.1* For any two item sets in $S_{1}$, being $X$ and $Y$, where $X \subseteq Y $:
 
-If $\frac{\text{supp}(\mathbf{Y})}{\text{supp}(\mathbf{X})} \geq 50\%$ then:
+If $\frac{\text{supp}(Y)}{\text{supp}(X)} \geq 50\%$ then:
 
-Generate $\mathbf{X} \rightarrow \mathbf{Y} - \mathbf{X}$
+Generate $X \rightarrow Y - X$
 
 > Why subset? 
 >
-> Remark: $\text{conf}(\{B\} \rightarrow \{C\}) = \frac{\text{supp}(\{B, C\})}{\text{supp}(\{B\})}$. Here, $\mathbf{X}$ is $\{C\}$ while $\mathbf{Y}$ is $\{B, C\}$.
+> Remark: $\text{conf}(\{B\} \rightarrow \{C\}) = \frac{\text{supp}(\{B, C\})}{\text{supp}(\{B\})}$. Here, $X$ is $\{C\}$ while $Y$ is $\{B, C\}$.
 > 
 > Larger set, more specifications, less occurances.
 
-**Output:** $\mathbb{S}_{2}$.
+**Output:** $S_{2}$.
 
 ## 2.3 Equivalence of the two methods
 
 **`claim`** The two methods generates the same set of outputs:
 
-$$\mathbb{S}_{2} = \mathbb{S}_{0}$$
+$$S_{2} = S_{0}$$
 
 ---
 
-**`proof`** $\mathbb{S}_{2}=\mathbb{S}_{0}$
+**`proof`** $S_{2}=S_{0}$
 
-Proving $\mathbb{S}_{2}=\mathbb{S}_{0}$ is equivalent to proving:
+Proving $S_{2}=S_{0}$ is equivalent to proving:
 
-$$\mathbb{S}_{2} \subset \mathbb{S}_{0} \land \mathbb{S}_{0} \subset \mathbb{S}_{2}$$
+$$S_{2} \subset S_{0} \land S_{0} \subset S_{2}$$
 
 Which is further equivalent to proving:
 
-$$(r \in \mathbb{S}_{2} \implies r \in \mathbb{S}_{0}) \land (r \in \mathbb{S}_{0} \implies r \in \mathbb{S}_{2})$$
+$$(r \in S_{2} \implies r \in S_{0}) \land (r \in S_{0} \implies r \in S_{2})$$
 
 Note that two sets are rule sets.
 
 ---
 
-**Sub-proof 1:** $(r \in \mathbb{S}_{2} \implies r \in \mathbb{S}_{0})$
+**Sub-proof 1:** $(r \in S_{2} \implies r \in S_{0})$
 
-Suppose that $r = (\mathbf{I}_{1} \rightarrow \mathbf{I}_{2})$ is a rule in $\mathbb{S}_{2}$, where $\mathbf{I}_{1}, \mathbf{I}_{2}$ are item sets.
+Suppose that $r = (I_{1} \rightarrow I_{2})$ is a rule in $S_{2}$, where $I_{1}, I_{2}$ are item sets.
 
-$r \in \mathbb{S}_{2}$
+$r \in S_{2}$
 
-$\implies (\text{conf}(r) \geq 50\%) \land (\mathbf{I}_{1} \cup \mathbf{I}_{2}, \mathbf{I}_{1} \in \mathbb{S}_{1})$
+$\implies (\text{conf}(r) \geq 50\%) \land (I_{1} \cup I_{2}, I_{1} \in S_{1})$
 
 ---
 
 *Sub-proof 1 - Branch 1:*
 
-$\mathbf{I}_{1} \cup \mathbf{I}_{2}, \mathbf{I}_{1} \in \mathbb{S}_{1} \implies \text{supp}(\mathbf{I}_{1} \cup \mathbf{I}_{2}) \geq 3 \land \text{supp}(\mathbf{I}_{2}) \geq 3$
+$I_{1} \cup I_{2}, I_{1} \in S_{1} \implies \text{supp}(I_{1} \cup I_{2}) \geq 3 \land \text{supp}(I_{2}) \geq 3$
 
-Since $\text{supp}(\mathbf{I}_{1} \cup \mathbf{I}_{2}) \geq 3$ and $\text{supp}(\mathbf{I}_{1} \rightarrow \mathbf{I}_{2}) = \text{supp}(\mathbf{I}_{1} \cup \mathbf{I}_{2})$, we have:
+Since $\text{supp}(I_{1} \cup I_{2}) \geq 3$ and $\text{supp}(I_{1} \rightarrow I_{2}) = \text{supp}(I_{1} \cup I_{2})$, we have:
 
-$$ \text{supp}(\mathbf{I}_{1} \rightarrow \mathbf{I}_{2}) \geq 3$$
+$$ \text{supp}(I_{1} \rightarrow I_{2}) \geq 3$$
 
 namely,
 
@@ -225,21 +216,21 @@ The rule is large.
 
 *Sub-proof 1 - Branch 2:*
 
-For $\text{conf}(r) \geq 50\%$ and $\text{supp}(r) \geq 3$, the rule $r$ is both large and interesting. Therefore, $r \in \mathbb{S}_{0}$.
+For $\text{conf}(r) \geq 50\%$ and $\text{supp}(r) \geq 3$, the rule $r$ is both large and interesting. Therefore, $r \in S_{0}$.
 
 ---
 
-**Sub-proof 2:** $(r \in \mathbb{S}_{0} \implies r \in \mathbb{S}_{2})$
+**Sub-proof 2:** $(r \in S_{0} \implies r \in S_{2})$
 
-Suppose that $r = (\mathbf{I}_{1} \rightarrow \mathbf{I}_{2})$ is a rule in $\mathbb{S}_{2}$, where $\mathbf{I}_{1}, \mathbf{I}_{2}$ are item sets.
+Suppose that $r = (I_{1} \rightarrow I_{2})$ is a rule in $S_{2}$, where $I_{1}, I_{2}$ are item sets.
 
-$r \in \mathbb{S}_{0}$
+$r \in S_{0}$
 
 $\implies (\text{supp}(r) \geq 3) \land (\text{conf}(r) \geq 50\%)$
 
-$\implies (\text{supp}(\mathbf{I}_{1} \rightarrow \mathbf{I}_{2}) \geq 3) \land (\text{conf}(\mathbf{I}_{1} \rightarrow \mathbf{I}_{2}) \geq 50\%)$
+$\implies (\text{supp}(I_{1} \rightarrow I_{2}) \geq 3) \land (\text{conf}(I_{1} \rightarrow I_{2}) \geq 50\%)$
 
-$\implies (\text{supp}(\mathbf{I}_{1} \cup \mathbf{I}_{2}) \geq 3) \land (\frac{\text{supp}(\mathbf{I}_{1} \cup \mathbf{I}_{2})}{\text{supp}(\mathbf{I}_{1})} \geq 50\%)$
+$\implies (\text{supp}(I_{1} \cup I_{2}) \geq 3) \land (\frac{\text{supp}(I_{1} \cup I_{2})}{\text{supp}(I_{1})} \geq 50\%)$
 
 ---
 
@@ -247,35 +238,35 @@ $\implies (\text{supp}(\mathbf{I}_{1} \cup \mathbf{I}_{2}) \geq 3) \land (\frac{
 
 There's a trivial property:
 
-$$\text{supp}(\mathbf{I}_{1}) \geq \text{supp}(\mathbf{I}_{1} \cup \mathbf{I}_{2})$$
+$$\text{supp}(I_{1}) \geq \text{supp}(I_{1} \cup I_{2})$$
 
-Having $\text{supp}(\mathbf{I}_{1} \cup \mathbf{I}_{2}) \geq 3$, we can conclude that:
+Having $\text{supp}(I_{1} \cup I_{2}) \geq 3$, we can conclude that:
 
-$$\text{supp}(\mathbf{I}_{1}) \geq \text{supp}(\mathbf{I}_{1} \cup \mathbf{I}_{2}) \geq 3$$
+$$\text{supp}(I_{1}) \geq \text{supp}(I_{1} \cup I_{2}) \geq 3$$
 
-Generally, both $\mathbf{I}_{1}$ and $\mathbf{I}_{1} \cup \mathbf{I}_{2}$ are large. Therefore:
+Generally, both $I_{1}$ and $I_{1} \cup I_{2}$ are large. Therefore:
 
-$$\mathbf{I}_{1}, \mathbf{I}_{1} \cup \mathbf{I}_{2} \in \mathbb{S}_{1}$$
+$$I_{1}, I_{1} \cup I_{2} \in S_{1}$$
 
 ---
 
 *Sub-proof 2 - Branch 2:*
 
-With $\mathbf{I}_{1}, \mathbf{I}_{1} \cup \mathbf{I}_{2} \in \mathbb{S}_{1}$, **Step 2** must consider $\mathbf{I}_{1}$ and $\mathbf{I}_{1} \cup \mathbf{I}_{2}$.
+With $I_{1}, I_{1} \cup I_{2} \in S_{1}$, **Step 2** must consider $I_{1}$ and $I_{1} \cup I_{2}$.
 
-Since $\text{conf}(\mathbf{I}_{1} \rightarrow \mathbf{I}_{2}) \geq 50\%$, **Step 2** must generate $\mathbf{I}_{1} \rightarrow \mathbf{I}_{2}$. Namely, **Step 2** must generate $r$.
+Since $\text{conf}(I_{1} \rightarrow I_{2}) \geq 50\%$, **Step 2** must generate $I_{1} \rightarrow I_{2}$. Namely, **Step 2** must generate $r$.
 
-Therefore, $r \in \mathbb{S}_{2}$.
+Therefore, $r \in S_{2}$.
 
 ---
 
 **Proof Summary**
 
-By **Sub-proof 1**, we have $r \in \mathbb{S}_{2} \implies r \in \mathbb{S}_{0}$, namely, $\mathbb{S}_{2} \subset \mathbb{S}_{0}$.
+By **Sub-proof 1**, we have $r \in S_{2} \implies r \in S_{0}$, namely, $S_{2} \subset S_{0}$.
 
-By **Sub-proof 2**, we have $r \in \mathbb{S}_{0} \implies r \in \mathbb{S}_{2}$, namely, $\mathbb{S}_{0} \subset \mathbb{S}_{2}$.
+By **Sub-proof 2**, we have $r \in S_{0} \implies r \in S_{2}$, namely, $S_{0} \subset S_{2}$.
 
-To sum up, $\mathbb{S}_{2} \subset \mathbb{S}_{0} \land \mathbb{S}_{0} \subset \mathbb{S}_{2}$. By definition, $\mathbb{S}_{2}=\mathbb{S}_{0}$.
+To sum up, $S_{2} \subset S_{0} \land S_{0} \subset S_{2}$. By definition, $S_{2}=S_{0}$.
 
 **Qed.**
 
@@ -293,18 +284,18 @@ Show: $\text{supp}(B \rightarrow C) \geq 3\%$
 
 i.e., show $\text{supp}(\{B, C\}) \geq 3\%$
 
-$B \rightarrow C \in \mathbb{S}_{2} \implies \frac{\text{supp}(\{B, C\})}{\text{supp}(B)} \geq 50\%$
+$B \rightarrow C \in S_{2} \implies \frac{\text{supp}(\{B, C\})}{\text{supp}(B)} \geq 50\%$
 
 Another line:
 
-$B \rightarrow C \in \mathbb{S}_{2} \implies B, C \in \mathbb{S}_{1}$
+$B \rightarrow C \in S_{2} \implies B, C \in S_{1}$
 
 $\implies \text{supp}(B) \geq 3$
 
-Claim 2: $\mathbb{S}_{0} \subset \mathbb{S}_{2}$
+Claim 2: $S_{0} \subset S_{2}$
 
 F
-$B \rightarrow C \in \mathbb{S}_{0}$
+$B \rightarrow C \in S_{0}$
 
 $\implies \text{conf}(B\rightarrow C) \geq 50\% \land \text{supp}(B\rightarrow C) \geq 3$
 
@@ -312,8 +303,8 @@ $\Leftrightarrow \frac{\text{supp}(\{B, C\})}{\text{supp}(B)} \geq 50\% \land \t
 
 $\implies \frac{\text{supp}(\{B, C\})}{\text{supp}(B)} \geq 50\% \land \text{supp}(B) \geq 3$
 
-$\implies \frac{\text{supp}(\{B, C\})}{\text{supp}(B)} \geq 50\% \land B \in \mathbb{S}_{1}$
+$\implies \frac{\text{supp}(\{B, C\})}{\text{supp}(B)} \geq 50\% \land B \in S_{1}$
 
 Step 2 must consider $B$, and $C$ together and must generate $B \rightarrow C$.
 
-Therefore, $\mathbb{S}_{0} \in \mathbb{S}_{2}$. -->
+Therefore, $S_{0} \in S_{2}$. -->
