@@ -31,7 +31,7 @@
 
 The support of an item set refers to the number of records (i.e., frequency) where all the item in the the item set are contained.
 
-$$\text{supp}(\{A, C\}) = \text{\#. of records contianing both} \ A \ \text{and} \ C$$
+$$\text{supp}(\{A, C\}) = \text{Number of records contianing both} \ A \ \text{and} \ C$$
 
 > *e.g.* 
 >
